@@ -1,0 +1,27 @@
+{
+  "name": "simple-logging-loader",
+  "version": "1.0.0",
+  "description": "This loader looks for the string literal \"log\" after the opening bracket of a function and replaces it with console.log(<function name>, arguments).",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gnordhielm/simple-logging-loader.git"
+  },
+  "keywords": [
+    "console",
+    "logging",
+    "log",
+    "development",
+    "automation",
+    "tools"
+  ],
+  "author": "Gus Nordhielm",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gnordhielm/simple-logging-loader/issues"
+  },
+  "homepage": "https://github.com/gnordhielm/simple-logging-loader#readme"
+}
