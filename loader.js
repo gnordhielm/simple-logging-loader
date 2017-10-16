@@ -1,69 +1,38 @@
 
-var utils = require('loader-utils')
-var SourceMapConsumer = require('source-map').SourceMapConsumer
-var SourceMapGenerator = require('source-map').SourceMapGenerator
 
-module.exports = function(source, inputSourceMap) {
-  var sourceMapEnabled = this.sourceMap;
-  var filename = normalizePath(this.resourcePath);
-  this.cacheable && this.cacheable();
+module.exports = function simpleLoggingLoader(source, sourceMap) {
 
-  var options = getOptions.call(this, sourceMapEnabled, filename);
+  // if (this.cacheable) this.cacheable()
 
-  var ngAnnotate = require(options.ngAnnotate);
-  var annotateResult = ngAnnotate(source, options);
+  // var result = _matchAndReplace(this, source)
 
-  if (annotateResult.errors) {
-    this.callback(annotateResult.errors);
-  } else if (annotateResult.src !== source) {
-    var outputSourceMap = mergeSourceMaps.call(this, inputSourceMap, annotateResult.map);
-    this.callback(null, annotateResult.src || source, outputSourceMap);
-  } else {
-    // if ngAnnotate did nothing, return map and result untouched
-    this.callback(null, source, inputSourceMap);
-  }
-};
+  // this.callback(null, result, sourceMap)
+  // return
 
-function getOptions(enableSourceMap) {
+  return _matchAndReplace(source)
 
-	var options = Object.assign({}, utils.getOptions(this))
-
-	if (enableSourceMap) {
-	    // options.map = {
-	    //   inline: false,
-	    //   inFile: filename,
-	    // }
-	}
-
-	return options
 }
 
-// function mergeSourceMaps(inputSourceMap, annotateMap) {
-//   var outputSourceMap;
-//   var sourceMapEnabled = this.sourceMap;
-//   var filename = normalizePath(this.resourcePath);
-//   this.cacheable && this.cacheable();
 
-//   if (sourceMapEnabled && !inputSourceMap && annotateMap) {
-//     outputSourceMap = annotateMap;
-//   }
+function _matchAndReplace(str) {
+  var result = str
 
-//   if (sourceMapEnabled && inputSourceMap) {
-//     inputSourceMap.sourceRoot = '';
-//     inputSourceMap.sources[0] = filename;
-
-//     if (annotateMap) {
-//       var generator = SourceMapGenerator.fromSourceMap(new SourceMapConsumer(annotateMap));
-//       generator.applySourceMap(new SourceMapConsumer(inputSourceMap), filename);
-
-//       outputSourceMap = generator.toJSON();
-//       outputSourceMap.sourceRoot = '';
-//       outputSourceMap.file = normalizePath(this.resourcePath);
-//     } else {
-//       outputSourceMap = inputSourceMap;
-//     }
-//   }
-
-//   return outputSourceMap;
-// }
+  // declarations
+  var declareRegex = /(.*function\s+(.\w+)\s*\(.*\s*{)\s*["']log["']/ig
+  result.replace(declareRegex, `$1\n\tconsole.log("$2", arguments)`)
+  
+ // anonymous/expressions
+  var anonymousRegex = /(.*function\s*\(.*\s*{)\s*["']log["']/ig
+  result.replace(anonymousRegex, `$1\n\tconsole.log("anonymous", arguments)`)
+  
+  // es6
+  var es6Regex = /(.*=>\s*{)\s*["']log["']/ig
+  result.replace(es6Regex, `$1\n\tconsole.log("anonymous", arguments)`)
+  
+  // else
+  var plainRegex = /["']log["']/ig
+  result.replace(plainRegex, "")
+  
+  return result
+}
 

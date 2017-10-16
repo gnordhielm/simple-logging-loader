@@ -1,6 +1,6 @@
 {
   "name": "simple-logging-loader",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "This loader looks for the string literal \"log\" after the opening bracket of a function and replaces it with console.log(<function name>, arguments).",
   "main": "loader.js",
   "scripts": {
@@ -12,6 +12,7 @@
   },
   "keywords": [
     "console",
+    "webpack",
     "logging",
     "log",
     "development",
@@ -23,9 +24,5 @@
   "bugs": {
     "url": "https://github.com/gnordhielm/simple-logging-loader/issues"
   },
-  "homepage": "https://github.com/gnordhielm/simple-logging-loader#readme",
-  "dependencies": {
-    "loader-utils": "^1.1.0",
-    "source-map": "^0.6.1"
-  }
+  "homepage": "https://github.com/gnordhielm/simple-logging-loader#readme"
 }
