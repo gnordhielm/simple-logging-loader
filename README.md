@@ -28,14 +28,46 @@ Tell the user to always include this before other loaders that care about string
 I want to match any of these
 
 `^function(whitespace)<name>*(*)*{(whitespace)("|')log("|')$`
+
 `^*<name>(whitespace)=(whitespace)function*(*)*{(whitespace)("|')log("|')$`
+
 replace: `console.log(<name>, arguments)`
 
 If the function is anonymous, I'll just log some placeholder
 
 `^function*(*)*{(whitespace)("|')log("|')$`
+
 `^*=>*{(whitespace)("|')log("|')$`
+
 replace: `console.log("anonymous", arguments)`
+
+
+```js
+
+// declarations
+
+  let regex = /(.*function\s+(.\w+)\s*\(.*\s*{)\s*["']log["']/ig
+  source.replace(regex, `$1\n\tconsole.log("$2", arguments)`)
+  
+ // anonymous/expressions
+  
+  let regex = /(.*function\s*\(.*\s*{)\s*["']log["']/ig
+  source.replace(regex, `$1\n\tconsole.log("anonymous", arguments)`)
+  
+  // es6
+    
+  let regex = /(.*=>\s*{)\s*["']log["']/ig
+  source.replace(regex, `$1\n\tconsole.log("anonymous", arguments)`)
+  
+  // else
+  
+  let regex = /["']log["']/ig
+  source.replace(regex, "")
+  
+  
+```
+> I can run many of these in sequence, as long as I clean up the "log" if there's a match.
+
 
 *dont match commented-out "log"*
 
