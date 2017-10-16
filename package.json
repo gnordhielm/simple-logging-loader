@@ -1,6 +1,6 @@
 {
   "name": "simple-logging-loader",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "This loader looks for the string literal \"log\" after the opening bracket of a function and replaces it with console.log(<function name>, arguments).",
   "main": "loader.js",
   "scripts": {
