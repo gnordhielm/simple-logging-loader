@@ -6,7 +6,7 @@
 
 This loader looks for the string literal `"log"` after the opening bracket of a function and replaces it with `console.log(<function name>, arguments)`.
 
-# Installation & Usage
+## Installation & Usage
 
 **Install the package**
 `npm install --save-dev simple-logging-loader`
@@ -59,7 +59,7 @@ Keep in mind:
 * This must be the first string literal following the function's opening bracket `{`.
 * This loader is best used early on, it cleans up after itself and understands es6 syntax.
 
-# Scratchwork
+## Scratchwork
 
 require at the top of the js loading chain - or maybe right after es5 transpilation.
 
