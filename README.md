@@ -152,5 +152,3 @@ I guess this can't actually happen if I asset that `log` has to follow `(*)*{*("
     return
   }
 ```
-
-
