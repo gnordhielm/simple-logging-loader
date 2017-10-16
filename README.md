@@ -1,31 +1,33 @@
 
 # simple-logging-loader
 
-<!-- [![npm](https://img.shields.io/npm/dt/simple-logging-loader.svg?style=flat-square)]() -->
-<!-- [![npm](https://img.shields.io/npm/v/simple-logging-loader.svg?style=flat-square)]() -->
+[![npm](https://img.shields.io/npm/dt/simple-logging-loader.svg?style=flat-square)](https://www.npmjs.com/package/simple-logging-loader)
+[![npm](https://img.shields.io/npm/v/simple-logging-loader.svg?style=flat-square)](https://www.npmjs.com/package/simple-logging-loader)
 
 This loader looks for the string literal `"log"` after the opening bracket of a function and replaces it with `console.log(<function name>, arguments)`.
 
 ## Installation & Usage
 
 **Install the package**
-`npm install --save-dev simple-logging-loader`
+```bash
+npm install --save-dev simple-logging-loader
+```
 
 **Incorporate the loader**
 
 ```js 
 // webpack.config.js
-	...
-	{
-		test: /\.(js)$/,
-		exclude: /(node_modules)/,
-		use: [
-			{ loader: 'ng-annotate-loader' }, 
-			{ loader: 'babel-loader', options: { presets: ['es2015', 'stage-0'] } },
-			{ loader: 'simple-logging-loader' }
-		]
-	},
-	...
+...
+{
+	test: /\.(js)$/,
+	exclude: /(node_modules)/,
+	use: [
+		{ loader: 'ng-annotate-loader' }, 
+		{ loader: 'babel-loader', options: { presets: ['es2015', 'stage-0'] } },
+		{ loader: 'simple-logging-loader' }
+	]
+},
+...
 
 ```
 
@@ -34,13 +36,13 @@ This loader looks for the string literal `"log"` after the opening bracket of a 
 ```js
 
 function greeter(name) { 'log'
-	return `hello ${name || 'world'}!`
+	return `Hello, ${name || 'world'}!`
 }
 
 console.log(greeter("Gus"))
 
 // greeter ["Gus", ...]
-// hello Gus!
+// Hello, Gus!
 
 const berater = name => { 
 	"log"
@@ -56,8 +58,9 @@ console.log(berater())
 
 
 Keep in mind:
-* This must be the first string literal following the function's opening bracket `{`.
-* This loader is best used early on, it cleans up after itself and understands es6 syntax.
+* `"log"` must be the first string literal following the function's opening bracket `{`.
+* This loader is best used early on, it cleans up after itself and understands arrow functions.
+* This loader is a litle bit brittle at the moment, I'm working on refactoring it as a babel plugin, but do keep an eye out for edge cases where it doesn't work (for example, if you try to destructure an object in the parameters).
 
 ## Scratchwork
 
@@ -66,9 +69,9 @@ require at the top of the js loading chain - or maybe right after es5 transpilat
 simple example:
 
 ```js
-  module.exports = function simpleLoggingLoader(source) {
-    return source.replace(/"log"/g, "console.log('logger', arguments)")
-  }
+module.exports = function simpleLoggingLoader(source) {
+  return source.replace(/"log"/g, "console.log('logger', arguments)")
+}
  ```
  
 important to dos
@@ -77,9 +80,9 @@ important to dos
 
 ```js
 
-  module.exports = function simpleLoggingLoader(source) {
-    return source.replace(/"log"|'log'/g, "console.log('logger', arguments)")
-  }
+module.exports = function simpleLoggingLoader(source) {
+  return source.replace(/"log"|'log'/g, "console.log('logger', arguments)")
+}
 
 ```
 
