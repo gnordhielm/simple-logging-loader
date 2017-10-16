@@ -2,7 +2,7 @@
 
 module.exports = function simpleLoggingLoader(source, sourceMap) {
 
-  // if (this.cacheable) this.cacheable()
+  if (this.cacheable) this.cacheable()
 
   // var result = _matchAndReplace(this, source)
 
