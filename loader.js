@@ -4,12 +4,14 @@ module.exports = function simpleLoggingLoader(source, sourceMap) {
 
   if (this.cacheable) this.cacheable()
 
+  this.value = _matchAndReplace(source)
+
   // var result = _matchAndReplace(this, source)
 
   // this.callback(null, result, sourceMap)
   // return
 
-  return _matchAndReplace(source)
+  return this.value
 
 }
 

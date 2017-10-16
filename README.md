@@ -41,7 +41,7 @@ function greeter(name) { 'log'
 
 console.log(greeter("Gus"))
 
-// greeter ["Gus", ...]
+// greeter ["Gus", callee: (...), Symbol(Symbol.iterator): ƒ]
 // Hello, Gus!
 
 const berater = name => { 
@@ -51,7 +51,7 @@ const berater = name => {
 
 console.log(berater())
 
-// anonymous [undefined, ...]
+// anonymous [undefined, callee: (...), Symbol(Symbol.iterator): ƒ]
 // I'm tired of your shit, world.
 
 ```
