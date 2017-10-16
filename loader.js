@@ -19,19 +19,19 @@ function _matchAndReplace(str) {
 
   // declarations
   var declareRegex = /(.*function\s+(.\w+)\s*\(.*\s*{)\s*(["'])log\3/ig
-  result.replace(declareRegex, `$1\n\tconsole.log("$2", arguments)`)
+  result = result.replace(declareRegex, `$1 console.log("$2", arguments)`)
   
  // anonymous/expressions
   var anonymousRegex = /(.*function\s*\(.*\s*{)\s*(["'])log\2/ig
-  result.replace(anonymousRegex, `$1\n\tconsole.log("anonymous", arguments)`)
+  result = result.replace(anonymousRegex, `$1 console.log("anonymous", arguments)`)
   
   // es6
   var es6Regex = /(.*=>\s*{)\s*(["'])log\2/ig
-  result.replace(es6Regex, `$1\n\tconsole.log("anonymous", arguments)`)
+  result = result.replace(es6Regex, `$1 console.log("anonymous", arguments)`)
   
   // else
   var plainRegex = /(["'])log\1/ig
-  result.replace(plainRegex, "")
+  result = result.replace(plainRegex, "")
   
   return result
 }

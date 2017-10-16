@@ -10,7 +10,7 @@ This loader looks for the string literal `"log"` after the opening bracket of a 
 
 **Install the package**
 ```bash
-npm install --save-dev simple-logging-loader
+npm install -D simple-logging-loader
 ```
 
 **Incorporate the loader**
