@@ -1,5 +1,10 @@
 
+
 # simple-logging-loader
+
+Deprecated - please use [babel-plugin-simple-logger](https://www.npmjs.com/package/babel-plugin-simple-logger) instead.
+
+---
 
 [![npm](https://img.shields.io/npm/dt/simple-logging-loader.svg?style=flat-square)](https://www.npmjs.com/package/simple-logging-loader)
 [![npm](https://img.shields.io/npm/v/simple-logging-loader.svg?style=flat-square)](https://www.npmjs.com/package/simple-logging-loader)
@@ -15,14 +20,14 @@ npm install -D simple-logging-loader
 
 **Incorporate the loader**
 
-```js 
+```js
 // webpack.config.js
 ...
 {
 	test: /\.(js)$/,
 	exclude: /(node_modules)/,
 	use: [
-		{ loader: 'ng-annotate-loader' }, 
+		{ loader: 'ng-annotate-loader' },
 		{ loader: 'babel-loader', options: { presets: ['es2015', 'stage-0'] } },
 		{ loader: 'simple-logging-loader' }
 	]
@@ -44,7 +49,7 @@ console.log(greeter("Gus"))
 // greeter ["Gus", callee: (...), Symbol(Symbol.iterator): ƒ]
 // Hello, Gus!
 
-const berater = name => { 
+const berater = name => {
 	"log"
 	return `I'm tired of your shit, ${name || 'world'}.`
 }
@@ -73,7 +78,7 @@ module.exports = function simpleLoggingLoader(source) {
   return source.replace(/"log"/g, "console.log('logger', arguments)")
 }
  ```
- 
+
 important to dos
 
 *match single and double quotes*
@@ -115,23 +120,23 @@ replace: `console.log("anonymous", arguments)`
 
   let regex = /(.*function\s+(.\w+)\s*\(.*\s*{)\s*["']log["']/ig
   source.replace(regex, `$1\n\tconsole.log("$2", arguments)`)
-  
+
  // anonymous/expressions
-  
+
   let regex = /(.*function\s*\(.*\s*{)\s*["']log["']/ig
   source.replace(regex, `$1\n\tconsole.log("anonymous", arguments)`)
-  
+
   // es6
-    
+
   let regex = /(.*=>\s*{)\s*["']log["']/ig
   source.replace(regex, `$1\n\tconsole.log("anonymous", arguments)`)
-  
+
   // else
-  
+
   let regex = /["']log["']/ig
   source.replace(regex, "")
-  
-  
+
+
 ```
 > I can run many of these in sequence, as long as I clean up the "log" if there's a match.
 
