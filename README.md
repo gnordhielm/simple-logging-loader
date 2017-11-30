@@ -2,12 +2,11 @@
 
 # simple-logging-loader
 
+---
+
 Deprecated - please use [babel-plugin-simple-logger](https://www.npmjs.com/package/babel-plugin-simple-logger) instead.
 
 ---
-
-[![npm](https://img.shields.io/npm/dt/simple-logging-loader.svg?style=flat-square)](https://www.npmjs.com/package/simple-logging-loader)
-[![npm](https://img.shields.io/npm/v/simple-logging-loader.svg?style=flat-square)](https://www.npmjs.com/package/simple-logging-loader)
 
 This loader looks for the string literal `"log"` after the opening bracket of a function and replaces it with `console.log(<function name>, arguments)`.
 
